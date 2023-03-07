@@ -14,7 +14,9 @@ export default async function handler(
     res.send('Missing code in the query');
     return;
   }
-
+  
+  console.log("I'm part of the OAuth2.0 flow being kicked off on the backend! Here's my code: " + req.query.code);
   await miro.exchangeCodeForAccessToken('', req.query.code);
+  
   res.redirect('/');
 }
