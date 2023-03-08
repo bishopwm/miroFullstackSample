@@ -47,52 +47,44 @@ export default function Main({boards}: {boards: string[]}) {
     });
   }, []);
 
-  // API Call SETUP
-  let restStickyContent = "";
+  // API Call Setup
 
-  async function apiCall(method: string, url: string, data: unknown) {
-    const res = await fetch(url, {
-      method: method,
-      headers: { "content-type": "application/json" },
-      //body: JSON.stringify(data),
-    });
-    if (res.status !== 200) {
-      const text = await res.text();
-      try {
-        throw new Error(JSON.parse(text));
-      } catch (err) {
-        throw new Error(text);
-      }
-    }
-  
+async function apiCall(method: string, url: string) {
+  const res = await fetch(url, {
+    method: method,
+    headers: { "content-type": "application/json" },
+  });
+  if (res.status !== 200) {
+    const text = await res.text();
     try {
-      const sampleItem = await res.json()
-      // Send data from REST API to the console
-      console.log("This sticky note data was fetched using the REST API!");
-      console.log(sampleItem.data[0]);
-
+      throw new Error(JSON.parse(text));
     } catch (err) {
-      return;
+      throw new Error(text);
     }
   }
 
-  // Web SDK Example Button
-  const sdkHandler = () => {
+  try {
+    const sampleItem = await res.json()
+    // Send data from REST API to the console
+    console.log("This image data was fetched using the REST API!");
+    console.log(sampleItem.data[0]);
 
-    const stickyNote = window.miro.board.createStickyNote({
-      content: 'This sticky note was created with the Web SDK!',
-      style: {
-        fillColor: 'orange', // Default value: light yellow
-        textAlign: 'center', // Default alignment: center
-        textAlignVertical: 'middle', // Default alignment: middle
-      },
-      x: 0, // Default value: horizontal center of the board
-      y: 0, // Default value: vertical center of the board
-      shape: 'square',
-      width: 200, // Set either 'width', or 'height'
-    });
-    return stickyNote;
+  } catch (err) {
+    return;
+  }
+}
 
+// Web SDK Example Button
+const sdkHandler = () => {
+  const image = window.miro.board.createImage({
+    title: 'This is an image',
+    url: 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=834&q=80',
+    x: 0, // Default value: horizontal center of the board
+    y: 0, // Default value: vertical center of the board
+    width: 800, // Set either 'width', or 'height'
+    rotation: 0.0,
+  });
+  return image
 };
  
 // REST API Example Button
@@ -119,7 +111,6 @@ async function restHandler() {
         <p>
           To explore more and build your own app, see the Miro Developer
           Platform documentation.
-         {restStickyContent}
         </p>
       </div>
       <div className="cs1 ce12">

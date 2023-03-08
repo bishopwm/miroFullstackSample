@@ -21,7 +21,7 @@ export default async function handler(
         .as("")
         ._api.call(
           "GET",
-          `/v2/boards/${boards[3]}/items`
+          `/v2/boards/${boards[3]}/images`
         );
       res.send(miroRes.body);
     } catch (err) {
