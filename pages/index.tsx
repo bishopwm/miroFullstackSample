@@ -25,7 +25,6 @@ export const getServerSideProps: GetServerSideProps =
     
     for await (const board of api.getAllBoards()) {
       boards.push(board.name || '');
-      // boards.push(board.id || '');
     }
 
 
@@ -47,7 +46,7 @@ export default function Main({boards}: {boards: string[]}) {
     });
   }, []);
 
-  // API Call Setup
+// API Call Setup
 
 async function apiCall(method: string, url: string) {
   const res = await fetch(url, {
@@ -62,17 +61,19 @@ async function apiCall(method: string, url: string) {
       throw new Error(text);
     }
   }
-
+ 
+ 
   try {
     const sampleItem = await res.json()
     // Send data from REST API to the console
     console.log("This image data was fetched using the REST API!");
     console.log(sampleItem.data[0]);
-
+ 
+ 
   } catch (err) {
     return;
   }
-}
+ }
 
 // Web SDK Example Button
 const sdkHandler = () => {
@@ -89,7 +90,12 @@ const sdkHandler = () => {
  
 // REST API Example Button
 async function restHandler() {
-  await apiCall("GET", "/api/restRequest", {});
+  await apiCall("GET", "/api/restRequest");
+}
+
+// Zoom API Example Button
+async function zoomHandler() {
+
 }
 
   return (
@@ -119,6 +125,9 @@ async function restHandler() {
       </button>
       <button className="button button-primary" type="button" onClick={restHandler}>
         REST button
+      </button>
+      <button className="button button-primary" type="button" onClick={zoomHandler}>
+        Connect Zoom
       </button>
       </div>
     </div>
