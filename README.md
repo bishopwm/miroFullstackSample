@@ -41,7 +41,7 @@ This app demonstrates how to connect to a database backend hosted on Firebase to
 > that covers the end to end flow for setting up a Firebase instance and connecting it to a Miro app from scratch, see [Connect the Miro Web SDK to a backend (Firebase)](https://developers.miro.com/docs/connect-the-miro-web-sdk-to-a-backend-firebase) tutorial on Miro's Developer documentation. 
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
-> ⚠️ For an end to end implementation, it's recommended to start with the associated Developer Tutorial above. Below, find abbreviated steps that assume you've completed the Firebase configuration in the associated Developer Tutorial.
+> ⚠️ For an end to end implementation, it's recommended to start with the associated Developer Tutorial: [Connect the Miro Web SDK to a backend (Firebase)](https://developers.miro.com/docs/connect-the-miro-web-sdk-to-a-backend-firebase). Below, find abbreviated steps that assume you've completed the Firebase configuration in the associated Developer Tutorial.
 
 1. Run `npm install` to install dependencies.
 2. Open `src/app.js` and replace the `firebaseConfig` object with the settings from your Firebase project.
