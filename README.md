@@ -1,7 +1,5 @@
-# Miro Webhook Manager
-This fullstack app allows you to create Miro webhook subscriptions for boards through a simple UI which can be launched directly from a Miro board.
-
-ℹ️ Subscriptions are created per user, per board. For more details on webhook endpoint requirements, see our [Webhooks documentation](https://developers.miro.com/reference/webhooks-overview).
+# Miro Connect Firebase
+This app demonstrates how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
 
 # 👨🏻‍💻 App Demo
 [Placeholder]
@@ -19,15 +17,14 @@ This fullstack app allows you to create Miro webhook subscriptions for boards th
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-- [Miro Node.js API Client](https://developers.miro.com/docs/miro-nodejs-api-client)
-- [Miro Webhooks](https://developers.miro.com/reference/webhooks-overview)
+- [Drag and Drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app)
 
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
-- [NextJS](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
+- JavaScript
 - [Vite](https://vitejs.dev/)
+- [Firebase](https://firebase.google.com/)
 
 # ✅ Prerequisites <a name="prerequisites"></a>
 
@@ -36,22 +33,37 @@ This fullstack app allows you to create Miro webhook subscriptions for boards th
 - Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
-- You have a valid https endpoint to use for creating webhook subscriptions in Miro
+- You have a [Firebase account](https://firebase.google.com/) to use a real-time database
 
 # 📖 Associated Developer Tutorial <a name="tutorial"></a>
 
 > To view a developer tutorial
-> that covers how to leverage Miro Webhooks using a test endpoint _without a UI_, see the [set up a test endpoint](https://developers.miro.com/docs/add-custom-actions-to-your-app) tutorial on Miro's Developer documentation. **Note**: This is separate from this Webhook Manager app.
+> that covers the end to end flow for setting up a Firebase instance and connecting it to a Miro app from scratch, see the [placeholder]() tutorial on Miro's Developer documentation. 
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+> ⚠️ For an end to end implementation, it's recommended to start with the associated Developer Tutorial above. Below, find abbreviated steps that assume you've completed the Firebase configuration in the associated Developer Tutorial.
 
 1. Run `npm install` to install dependencies.
-2. Run `npm start` to start developing. \
+2. Open `src/app.js` and replace the `firebaseConfig` object with the settings from your Firebase project.
+
+```js
+const firebaseConfig = {
+  apiKey: "<YOUR-API-KEY>",
+  authDomain: "<YOUR-DOMAIN>.firebaseapp.com",
+  databaseURL: "https://<YOUR-DOMAIN>-rtdb.firebaseio.com",
+  projectId: "<YOUR-PROJECT-ID>",
+  storageBucket: "<YOUR-BUCKET>.appspot.com",
+  messagingSenderId: "<YOUR-SENDER-ID>",
+  appId: "<YOUR-APP-ID>",
+};
+```
+
+3. Run `npm start` to start developing. \
    Your URL should be similar to this example:
    ```
    http://localhost:3000
    ```
-3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
 
    - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
@@ -61,7 +73,7 @@ This fullstack app allows you to create Miro webhook subscriptions for boards th
      - `boards:read`
      - `boards:write`
 
-4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
+5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
@@ -69,20 +81,20 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 
 5. Go to your developer team, and open your boards.
 6. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say More apps.
-7. Search for your app `Webhook Manager` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+7. Search for your app `Connect Firebase` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
 
 # 🗂️ Folder structure <a name="folder"></a>
 
 ```
 .
-├── pages
-│  └── api <-- Directory that contains files for auth and redirect, as well as webhook configuration
-│  └── _app.tsx
-│  └── _document.tsx
-│  └── index.tsx <-- Main app file
-├── styles
-└── initMiro.ts <-- Sets up a Miro instance in the NodeJS Client
+├── src
+│  └── assets
+│  └── App.js <-- The main app. Contains logic for configuring the Firebase instance and pushing template details to Firebase.
+│      index.js <-- Initializes app, and contains logic for opening the app panel.
+├── app.html <-- The app UI itself. This is loaded on the board inside the 'appContainer'.
+└── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
+
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
 
